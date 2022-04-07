@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -24,15 +25,15 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
 	
 	@Autowired
 	private JwtRequestFilter jwtRequestFilter;
-
+	
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.userDetailsService(userCredentialsService);
+		auth.userDetailsService(userCredentialsService).passwordEncoder(passwordEncoder());
 	}
 	
 	@Bean
 	public PasswordEncoder passwordEncoder() {
-		return NoOpPasswordEncoder.getInstance();//Did not store anonymous SecurityContext
+		return new BCryptPasswordEncoder();//Did not store anonymous SecurityContext
 	}
 	
 	@Override

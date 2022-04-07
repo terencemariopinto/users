@@ -1,7 +1,7 @@
-Insert into user (username,password) values ('Jimmmyjohn','testing1');
-Insert into user (username,password) values ('JohnJimmy','testing2');
-Insert into user (username,password) values ('Kumarsamy','testing3');
-Insert into user (username,password) values ('harjitSingh','testing4');
+Insert into user (username,password) values ('Jimmmyjohn','$2a$10$p4voOHSF.IwRDp0RU8qOpeE03TsofbqGaYbhWI6ZD1isa5FzMuG3G'); /*testing1 */
+Insert into user (username,password) values ('JohnJimmy','$2a$10$wYIvWxRkmBxij9jIQrQJy.Og.ApDxjbk2q5M61akOVGyxBotIUAL6'); /*testing1 */
+Insert into user (username,password) values ('Kumarsamy','$2a$10$iFlKae2/IiGsl4ZMvyc.GeKvRjXYEoxiYj65r19P/ExaT97XwsCoy'); /*testing3 */
+Insert into user (username,password) values ('harjitSingh','$2a$10$W6aLRT8V5xj8DJR6hzjJeu5r5mTbohOSCmbMNTkgnkL8kDyI73QjS'); /*testing4 */
 
 
 Insert into userinfo (ID,name,email,phone) values ('320f6e50-adf5-11ec-b909-0242ac120002','Jimmmy John','jimmyjohn@gmail.com','4678901234');

@@ -9,6 +9,8 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 import com.demo.user.user.entity.UserInfo;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -41,11 +43,14 @@ public class UserController {
 	@Autowired
 	private JwtUtil jwtTokenUtil;
 	
-	
+	@Autowired
+	private BCryptPasswordEncoder bCryptPasswordEncoder;
 	
 	@PostMapping("/api/register")
 	public ResponseEntity registerUser(@RequestBody UserCredentials user) {
 		UserCredentials savedUser = null;
+		
+		user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
 		savedUser = userCredentialsService.createUser(user);
 		if(null == savedUser) {
 			throw new UserExistsException("User Id "+ user.getUsername()+ " already exists, choose another User Id ");
