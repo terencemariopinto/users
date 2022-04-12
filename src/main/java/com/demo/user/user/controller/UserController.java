@@ -47,7 +47,7 @@ public class UserController {
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
 	
 	@PostMapping("/api/register")
-	public ResponseEntity registerUser(@RequestBody UserCredentials user) {
+	public ResponseEntity<?> registerUser(@RequestBody UserCredentials user) {
 		UserCredentials savedUser = null;
 		
 		user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
@@ -60,7 +60,7 @@ public class UserController {
 	}
 
 	@PostMapping("/api/authenticate")
-	public ResponseEntity authenticateUser(@RequestBody AuthenticationRequest authenticationRequest) throws Exception {
+	public ResponseEntity<AuthenticationResponse> authenticateUser(@RequestBody AuthenticationRequest authenticationRequest) throws Exception {
 		try {
 			authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authenticationRequest.getUsername(), authenticationRequest.getPassword()));
 		}
@@ -84,7 +84,7 @@ public class UserController {
 	}
 	
 	@PostMapping("/api/users/{uuid}")
-	public ResponseEntity updateUser(@PathVariable("uuid") UUID userUuid, @RequestBody UserInfo user) {
+	public ResponseEntity<?> updateUser(@PathVariable("uuid") UUID userUuid, @RequestBody UserInfo user) {
 		user.setId(userUuid);
 		UserInfo updatedUser= userInfoService.updateUserInfo(user);
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(updatedUser.getId()).toUri();
@@ -92,7 +92,7 @@ public class UserController {
 	}
 
 	@PostMapping("/api/users")
-	public ResponseEntity createUser(@RequestBody UserInfo user) {
+	public ResponseEntity<?> createUser(@RequestBody UserInfo user) {
 		UserInfo savedUser= userInfoService.createUser(user);
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(savedUser.getId()).toUri();
 		return ResponseEntity.created(location).build();

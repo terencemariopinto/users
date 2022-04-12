@@ -23,7 +23,7 @@ public class UserInfoService {
 		return userInfoRepository.save(user);
 	}
 
-	public UserInfo getUserbyUuid(UUID userUuid) throws UserNotFoundException {
+	public UserInfo getUserbyUuid(UUID userUuid) {
 		return userInfoRepository.findById(userUuid).orElse(null);
 	}
 }
